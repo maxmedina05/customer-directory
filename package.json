@@ -1,0 +1,36 @@
+{
+  "name": "customer-directory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxmedina05/customer-directory.git"
+  },
+  "keywords": [
+    "Angular",
+    "Node",
+    "RESTAPI"
+  ],
+  "author": "Max Medina",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maxmedina05/customer-directory/issues"
+  },
+  "homepage": "https://github.com/maxmedina05/customer-directory#readme",
+  "dependencies": {
+    "api-query-params": "^4.5.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.5",
+    "swagger-jsdoc": "^1.9.7",
+    "swagger-ui-express": "^3.0.8"
+  }
+}
