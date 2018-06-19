@@ -1,0 +1,36 @@
+<form>
+  <div>
+    <label for="CustomerID">CustomerID</label>
+    <input [(ngModel)]="customer.CustomerID" type="text" name="CustomerID" />
+  </div>
+
+  <div>
+    <label for="firstName">First Name</label>
+    <input [(ngModel)]="customer.name.first" type="text" name="firstName" />
+  </div>
+
+  <div>
+    <label for="lastName">Last Name</label>
+    <input [(ngModel)]="customer.name.last" type="text" name="lastName" />
+  </div>
+
+  <div>
+    <label for="birthday">Birthday</label>
+    <input [(ngModel)]="customer.birthday" type="date" name="birthday" />
+  </div>
+
+  <div>
+    <label for="gender">Gender</label>
+    <input [(ngModel)]="customer.gender" type="text" name="gender" />
+  </div>
+
+  <div>
+    <label for="lastContact">Last Contact</label>
+    <input [(ngModel)]="customer.lastContact" type="date" name="lastContact" />
+  </div>
+
+  <div>
+    <label for="customerLifetimeValue">Customer Lifetime Value</label>
+    <input [(ngModel)]="customer.customerLifetimeValue" type="number" name="customerLifetimeValue" />
+  </div>
+</form>
