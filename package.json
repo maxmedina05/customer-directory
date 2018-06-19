@@ -8,7 +8,12 @@
     "npm": "5.8.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "set NODE_ENV=development && concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
@@ -32,5 +37,8 @@
     "mongoose": "^5.1.5",
     "swagger-jsdoc": "^1.9.7",
     "swagger-ui-express": "^3.0.8"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
   }
 }
