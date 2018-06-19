@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CUSTOMERS } from './components/customers.mock';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +7,4 @@ import { CUSTOMERS } from './components/customers.mock';
 })
 export class AppComponent {
   title = 'Webtrekk Customer Directory';
-  customers = CUSTOMERS;
 }

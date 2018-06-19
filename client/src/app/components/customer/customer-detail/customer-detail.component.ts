@@ -7,15 +7,15 @@ import { Customer } from '../customer.model';
 })
 export class CustomerDetailComponent {
   customer: Customer = {
-    customerID: 1,
+    customerID: 0,
     name: {
-      first: 'Peter',
-      last: 'Smith'
+      first: '',
+      last: ''
     },
-    birthday: '1996-10-12',
+    birthday: new Date().toDateString(),
     gender: 'm',
-    lastContact: new Date('2017-06-01T23:28:56.782Z'),
-    customerLifetimeValue: 191.12
+    lastContact: new Date(),
+    customerLifetimeValue: 0
   };
 
   onBack(): void {
@@ -30,7 +30,7 @@ export class CustomerDetailComponent {
     console.log('onDelete');
   }
 
-  onCancel(): void {
-    console.log('onCancel');
+  onReset(): void {
+    console.log('onReset');
   }
 }
