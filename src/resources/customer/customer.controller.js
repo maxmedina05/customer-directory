@@ -1,4 +1,5 @@
 const Customer = require("./customer.schema");
+const { CustomerNotFoundException } = require("./customer.exception");
 const Agp = require("api-query-params");
 
 async function getAllcustomer(req, res) {
@@ -62,6 +63,7 @@ async function addCustomer(req, res) {
   }
 }
 
+// TODO: Add not found exception
 async function getCustomer(req, res) {
   const { customerId } = req.params;
   try {
@@ -69,6 +71,10 @@ async function getCustomer(req, res) {
       { customerId },
       { __v: 0, createdAt: 0, modifiedAt: 0 }
     );
+
+    if (!customer) {
+      throw new CustomerNotFoundException();
+    }
 
     res.json({ payload: customer });
   } catch (err) {
@@ -91,6 +97,11 @@ async function updateCustomer(req, res) {
 
   try {
     const customer = await Customer.findOne({ customerId });
+
+    if (!customer) {
+      throw new CustomerNotFoundException();
+    }
+
     customer.name = name ? name : customer.name;
     customer.birthday = birthday ? birthday : customer.birthday;
     customer.gender = gender ? gender : customer.gender;
@@ -114,6 +125,11 @@ async function deleteCustomer(req, res) {
     const deletedCustomer = await Customer.deleteOne({
       customerId
     });
+
+    if (!deletedCustomer) {
+      throw new CustomerNotFoundException();
+    }
+
     res.status(204).send();
   } catch (err) {
     res.status(400).json({ payload: null, error: err });
