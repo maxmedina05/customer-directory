@@ -17,7 +17,7 @@ mongoose.connect(MONGO_URI);
 
 app.use(`${BASE_API_URL}/customers`, customerResource.router);
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/dist/client'));
   app.get('*', (req, res) => {
     res.sendFile(
