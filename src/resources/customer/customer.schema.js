@@ -6,7 +6,7 @@ const counter = require("../counter.schema");
  * definitions:
  *   Customer:
  *     properties:
- *       customerId:
+ *       customerID:
  *         type: string
  *       name:
  *         type: string
@@ -19,7 +19,7 @@ const counter = require("../counter.schema");
  *         $ref: '#/definitions/Customer'
  */
 const customerSchema = new mongoose.Schema({
-  customerId: { type: Number },
+  customerID: { type: Number },
   name: {
     first: { type: String, default: "" },
     last: { type: String, default: "" }
@@ -38,13 +38,13 @@ customerSchema.pre("save", function(next) {
   let self = this;
 
   counter.findByIdAndUpdate(
-    { _id: "customerId" },
+    { _id: "customerID" },
     { $inc: { seq: 1 } },
     (err, nextCustomer) => {
       if (err) {
         return next(err);
       }
-      self.customerId = nextCustomer.seq;
+      self.customerID = nextCustomer.seq;
       next();
     }
   );
