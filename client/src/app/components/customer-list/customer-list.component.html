@@ -1,0 +1,25 @@
+<h2>Customer List</h2>
+
+<button>Add New Customer</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>CustomerID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of customers">
+      <td>{{customer.customerID}}</td>
+      <td>{{customer.name.first + ' ' + customer.name.last }}</td>
+      <td></td>
+      <td>
+        <button type="button" (click)="onEditClick(customer)">Edit</button>
+        <button type="button" (click)="onRemoveClick(customer)">Remove</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
