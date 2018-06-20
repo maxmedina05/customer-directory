@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const counter = require("../counter.schema");
+const mongoose = require('mongoose');
+const Counter = require('../counter.schema');
 
 /**
  * @swagger
@@ -9,23 +9,30 @@ const counter = require("../counter.schema");
  *       customerID:
  *         type: string
  *       name:
- *         type: string
+ *         type: object
+ *          properties:
+ *            first:
+ *              type: string
+ *            last:
+ *              type: string
  *       birthday:
  *         type: string
  *       gender:
  *         type: string
- *       address:
- *         type: object
+ *       lastContact:
+ *         type: date
+ *       customerLifetimeValue:
+ *         type: number
  *         $ref: '#/definitions/Customer'
  */
 const customerSchema = new mongoose.Schema({
   customerID: { type: Number },
   name: {
-    first: { type: String, default: "" },
-    last: { type: String, default: "" }
+    first: { type: String, default: '' },
+    last: { type: String, default: '' }
   },
-  birthday: { type: String, default: "" },
-  gender: { type: String, default: "", maxlength: 1 },
+  birthday: { type: String, default: '' },
+  gender: { type: String, default: '', maxlength: 1 },
   lastContact: { type: Date, default: Date.now },
   customerLifetimeValue: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now },
@@ -34,20 +41,14 @@ const customerSchema = new mongoose.Schema({
 });
 
 // TODO: write script for setting up database
-customerSchema.pre("save", function(next) {
-  let self = this;
-
-  counter.findByIdAndUpdate(
-    { _id: "customerID" },
-    { $inc: { seq: 1 } },
-    (err, nextCustomer) => {
-      if (err) {
-        return next(err);
-      }
-      self.customerID = nextCustomer.seq;
-      next();
-    }
+customerSchema.pre('save', async function(next) {
+  const counter = await Counter.findByIdAndUpdate(
+    { _id: 'customerID' },
+    { $inc: { seq: 1 } }
   );
+  console.log(counter);
+  this.customerID = counter;
+  next();
 });
 
-module.exports = mongoose.model("Customer", customerSchema);
+module.exports = mongoose.model('Customer', customerSchema);

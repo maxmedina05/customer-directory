@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -11,9 +10,11 @@ const PORT = process.env.PORT || 3000;
 const resources = require('./src/resources');
 const customerResource = resources.customer;
 
+const app = express();
+mongoose.connect(MONGO_URI);
+
 bodyParser.urlencoded({ extended: true });
 app.use(bodyParser.json());
-mongoose.connect(MONGO_URI);
 
 app.use(`${BASE_API_URL}/customers`, customerResource.router);
 
