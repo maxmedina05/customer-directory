@@ -26,7 +26,7 @@ const Counter = require('../counter.schema');
  *         $ref: '#/definitions/Customer'
  */
 const customerSchema = new mongoose.Schema({
-  customerID: { type: Number },
+  customerID: { type: Number, default: 0, unique: true },
   name: {
     first: { type: String, default: '' },
     last: { type: String, default: '' }
@@ -40,15 +40,24 @@ const customerSchema = new mongoose.Schema({
   timezoneOffset: { type: Number, default: new Date().getTimezoneOffset() }
 });
 
-// TODO: write script for setting up database
 customerSchema.pre('save', async function(next) {
-  const counter = await Counter.findByIdAndUpdate(
-    { _id: 'customerID' },
-    { $inc: { seq: 1 } }
-  );
-  console.log(counter);
-  this.customerID = counter;
-  next();
+  try {
+    let counter = await Counter.findByIdAndUpdate('customerID', {
+      $inc: { seq: 1 }
+    });
+    console.log('counter: ', counter);
+    if (!counter) {
+      counter = new Counter({ _id: 'customerID', seq: 1 });
+      await counter.save();
+      this.customerID = counter.seq;
+      next();
+    } else {
+      this.customerID = counter.seq;
+      next();
+    }
+  } catch (e) {
+    next(e);
+  }
 });
 
 module.exports = mongoose.model('Customer', customerSchema);

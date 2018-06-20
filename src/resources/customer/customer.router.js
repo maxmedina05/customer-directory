@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const {
   getAllcustomer,
@@ -6,7 +6,7 @@ const {
   deleteCustomer,
   getCustomer,
   updateCustomer
-} = require("./customer.controller");
+} = require('./customer.controller');
 
 /**
  * @swagger
@@ -44,7 +44,7 @@ const {
  *       400:
  *         description: Error
  */
-router.get("/", getAllcustomer);
+router.get('/', getAllcustomer);
 
 /**
  * @swagger
@@ -69,11 +69,11 @@ router.get("/", getAllcustomer);
  *       400:
  *         description: Error
  */
-router.post("/", addCustomer);
+router.post('/', addCustomer);
 
 /**
  * @swagger
- * /customers/{customerId}:
+ * /customers/{customerID}:
  *   delete:
  *     tags:
  *       - Customers
@@ -91,21 +91,21 @@ router.post("/", addCustomer);
  *       400:
  *         description: Error
  */
-router.delete("/:customerId", deleteCustomer);
+router.delete('/:customerID', deleteCustomer);
 
 /**
  * @swagger
- * /customers/{customerId}:
+ * /customers/{customerID}:
  *   get:
  *     tags:
  *       - Customers
- *     summary: Get a customer by its customerId.
+ *     summary: Get a customer by its customerID.
  *     produces:
  *       - application/json
  *     parameters:
- *      - name: customerId
+ *      - name: customerID
  *        in: param
- *        description: The customerId of customer that needs to be found.
+ *        description: The customerID of customer that needs to be found.
  *        required: true
  *     responses:
  *       200:
@@ -114,11 +114,11 @@ router.delete("/:customerId", deleteCustomer);
  *         description: Error
  */
 
-router.get("/:customerId", getCustomer);
+router.get('/:customerID', getCustomer);
 
 /**
  * @swagger
- * /customers/{customerId}:
+ * /customers/{customerID}:
  *   put:
  *     tags:
  *       - Customers
@@ -128,9 +128,9 @@ router.get("/:customerId", getCustomer);
  *     produces:
  *       - application/json
  *     parameters:
- *      - name: customerId
+ *      - name: customerID
  *        in: param
- *        description: The customerId of customer that needs to update.
+ *        description: The customerID of customer that needs to update.
  *        required: true
  *      - name: customer
  *        in: body
@@ -143,6 +143,6 @@ router.get("/:customerId", getCustomer);
  *       400:
  *         description: Error
  */
-router.put("/:customerId", updateCustomer);
+router.put('/:customerID', updateCustomer);
 
 module.exports = router;
