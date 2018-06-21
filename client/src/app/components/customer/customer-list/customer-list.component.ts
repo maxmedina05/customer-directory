@@ -112,6 +112,7 @@ export class CustomerListComponent implements OnInit {
       .deleteCustomer(this.selectedCustomer)
       .subscribe((response: Response) => {
         this.selectedCustomer = null;
+        this.reloadCustomers();
       });
 
     this.modalRef.hide();
