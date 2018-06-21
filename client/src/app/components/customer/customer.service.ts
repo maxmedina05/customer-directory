@@ -15,9 +15,11 @@ const BASE_API_ENDPOINT = '/api/v1';
 export class CustomerService {
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
-  getCustomers(offset: number = 0): Observable<Response> {
+  getCustomers(offset: number = 0, limit: number = 10): Observable<Response> {
     return this.http
-      .get<Response>(`${BASE_API_ENDPOINT}/customers?skip=${offset}`)
+      .get<Response>(
+        `${BASE_API_ENDPOINT}/customers?skip=${offset}&limit=${limit}`
+      )
       .pipe(catchError(this.handleError('getCustomers')));
   }
 

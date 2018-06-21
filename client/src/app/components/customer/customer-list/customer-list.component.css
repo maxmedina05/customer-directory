@@ -1,3 +1,7 @@
 .action-group > button {
   margin-right: 8px;
 }
+
+.paper-card > button {
+  margin-bottom: 16px;
+}

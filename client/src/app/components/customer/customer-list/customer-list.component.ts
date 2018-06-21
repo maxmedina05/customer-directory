@@ -15,10 +15,11 @@ import { Response } from '../../response.model';
 export class CustomerListComponent implements OnInit {
   private _currentPage = 1;
   private selectedCustomer: Customer = null;
+  isLoading = false;
   customers: Customer[] = [];
   pages = [];
   totalPages = 0;
-  CUSTOMER_PER_PAGE = 20;
+  CUSTOMER_PER_PAGE = 10;
   modalRef: BsModalRef;
 
   constructor(
@@ -42,7 +43,7 @@ export class CustomerListComponent implements OnInit {
 
   private getCustomers(offset: number = 0) {
     this.customerService
-      .getCustomers(offset)
+      .getCustomers(offset, this.CUSTOMER_PER_PAGE)
       .subscribe((response: Response) => {
         this.customers = response.payload;
 

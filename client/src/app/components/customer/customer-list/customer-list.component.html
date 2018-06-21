@@ -1,12 +1,14 @@
-<div>
+<div class="paper-card">
   <h2>Customer List</h2>
-  <button class="btn btn-primary float-right" (click)="onAddNewClick()">Add Customer</button>
+  <button class="btn btn-primary pull-right" (click)="onAddNewClick()">Add Customer</button>
 
   <table class="table table-hover table-sm">
     <thead class="thead-dark">
       <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Age</th>
+        <th>CLV</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -14,8 +16,10 @@
       <tr *ngFor="let customer of customers">
         <td>{{customer.customerID}}</td>
         <td>{{customer.name.first + ' ' + customer.name.last }}</td>
+        <td></td>
+        <td></td>
         <td>
-          <span class="action-group">
+          <span class="action-group pull-right">
             <button class="btn btn-info btn-sm" type="button" (click)="onEditClick(customer)">
               <fa name="edit"></fa>
             </button>
