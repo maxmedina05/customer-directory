@@ -76,6 +76,7 @@ export class CustomerDetailComponent implements OnInit {
         .updateCustomer(this.customer)
         .subscribe((response: Response) => {
           if (response.payload) {
+            this.customer = defaultCustomer;
             this.router.navigateByUrl('/customers');
           }
         });
@@ -87,6 +88,7 @@ export class CustomerDetailComponent implements OnInit {
       .addCustomer(this.customer)
       .subscribe((response: Response) => {
         if (response.payload) {
+          this.customer = defaultCustomer;
           this.router.navigateByUrl('/customers');
         }
       });
