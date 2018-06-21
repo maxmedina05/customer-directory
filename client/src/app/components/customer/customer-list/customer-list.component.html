@@ -1,6 +1,6 @@
 <div>
   <h2>Customer List</h2>
-  <button class="btn btn-primary float-right" (click)="onAddNewClick()">Add New</button>
+  <button class="btn btn-primary float-right" (click)="onAddNewClick()">Add Customer</button>
 
   <table class="table table-hover table-sm">
     <thead class="thead-dark">
@@ -17,9 +17,11 @@
         <td>
           <span class="action-group">
             <button class="btn btn-info btn-sm" type="button" (click)="onEditClick(customer)">
-              <fa name="edit"></fa> Edit</button>
+              <fa name="edit"></fa>
+            </button>
             <button class="btn btn-danger btn-sm" type="button" (click)="onRemoveClick(customer)">
-              <fa name="trash"></fa> Remove</button>
+              <fa name="trash"></fa>
+            </button>
           </span>
         </td>
       </tr>

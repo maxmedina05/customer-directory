@@ -1,0 +1,23 @@
+.paper-card {
+  max-width: 640px;
+  margin: 0 auto;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  padding: 1.25rem;
+}
+
+.paper-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.paper-card-title > button,
+h2 {
+  display: inline-block;
+}
+
+.paper-card-title > button {
+  vertical-align: top;
+  margin-right: 8px;
+}
