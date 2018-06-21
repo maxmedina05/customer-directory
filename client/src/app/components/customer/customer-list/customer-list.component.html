@@ -1,25 +1,42 @@
-<h2>Customer List</h2>
+<div>
+  <h2>Customer List</h2>
+  <button class="btn btn-primary float-right" (click)="onAddNewClick()">Add New</button>
 
-<button>Add New Customer</button>
+  <table class="table table-hover table-sm">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{customer.customerID}}</td>
+        <td>{{customer.name.first + ' ' + customer.name.last }}</td>
+        <td>
+          <span class="action-group">
+            <button class="btn btn-info btn-sm" type="button" (click)="onEditClick(customer)">
+              <fa name="edit"></fa> Edit</button>
+            <button class="btn btn-danger btn-sm" type="button" (click)="onRemoveClick(customer)">
+              <fa name="trash"></fa> Remove</button>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<table>
-  <thead>
-    <tr>
-      <th>CustomerID</th>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let customer of customers">
-      <td>{{customer.customerID}}</td>
-      <td>{{customer.name.first + ' ' + customer.name.last }}</td>
-      <td></td>
-      <td>
-        <button type="button" (click)="onEditClick(customer)">Edit</button>
-        <button type="button" (click)="onRemoveClick(customer)">Remove</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-end">
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}" (click)="onPreviousClick($event)">
+        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+      <li *ngFor="let page of pages" class="page-item" [ngClass]="{'active': page === currentPage}" (click)="onChangePageClick($event, page)">
+        <a class="page-link" href="#">{{page}}</a>
+      </li>
+      <li class="page-item" (click)="onNextClick($event)">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
