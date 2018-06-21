@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Location } from '@angular/common';
 import { Customer } from '../customer.model';
 
 @Component({
@@ -18,19 +19,21 @@ export class CustomerDetailComponent {
     customerLifetimeValue: 0
   };
 
-  onBack(): void {
-    console.log('onBack');
+  constructor(private location: Location) {}
+
+  onBack() {
+    this.location.back();
   }
 
-  onSubmit(): void {
+  onSubmit() {
     console.log('onSubmit');
   }
 
-  onDelete(): void {
+  onDelete() {
     console.log('onDelete');
   }
 
-  onReset(): void {
+  onReset() {
     console.log('onReset');
   }
 }
