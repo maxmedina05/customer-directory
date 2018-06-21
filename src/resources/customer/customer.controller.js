@@ -1,6 +1,15 @@
+const Agp = require('api-query-params');
 const Customer = require('./customer.schema');
 const { CustomerNotFoundException } = require('./customer.exception');
-const Agp = require('api-query-params');
+const { chopProperties } = require('../utils');
+
+const propertiesBackList = [
+  'createdAt',
+  'modifiedAt',
+  'timezoneOffset',
+  '_id',
+  '__v'
+];
 
 async function getAllcustomer(req, res) {
   try {
@@ -9,10 +18,16 @@ async function getAllcustomer(req, res) {
       skip = 0,
       limit = 20,
       sort,
-      projection = { __v: 0, createdAt: 0, modifiedAt: 0 }
+      projection = {
+        _id: 0,
+        __v: 0,
+        createdAt: 0,
+        modifiedAt: 0,
+        timezoneOffset: 0
+      }
     } = Agp(req.query);
     const total = await Customer.count(filter);
-    const customers = await Customer.find(filter)
+    let customers = await Customer.find(filter)
       .find(filter)
       .skip(skip)
       .limit(limit)
@@ -26,10 +41,7 @@ async function getAllcustomer(req, res) {
       total
     });
   } catch (err) {
-    res.status(400).json({
-      payload: null,
-      error: err.message || err
-    });
+    res.status(400).json({ payload: null, error: buildError(err) });
   }
 }
 
@@ -43,7 +55,7 @@ async function addCustomer(req, res) {
   } = req.body;
 
   try {
-    const newCustomer = await Customer.create({
+    let newCustomer = await Customer.create({
       name,
       birthday,
       gender,
@@ -51,15 +63,14 @@ async function addCustomer(req, res) {
       customerLifetimeValue
     });
 
+    newCustomer = chopProperties(newCustomer, propertiesBackList);
+
     res.status(201).json({
       payload: newCustomer,
       error: false
     });
   } catch (err) {
-    res.status(400).json({
-      payload: null,
-      error: err
-    });
+    res.status(400).json({ payload: null, error: buildError(err) });
   }
 }
 
@@ -68,7 +79,13 @@ async function getCustomer(req, res) {
   try {
     const customer = await Customer.findOne(
       { customerID: customerID },
-      { __v: 0, createdAt: 0, modifiedAt: 0 }
+      {
+        _id: 0,
+        __v: 0,
+        createdAt: 0,
+        modifiedAt: 0,
+        timezoneOffset: 0
+      }
     );
     if (!customer) {
       throw new CustomerNotFoundException();
@@ -76,10 +93,7 @@ async function getCustomer(req, res) {
 
     res.json({ payload: customer });
   } catch (err) {
-    res.status(400).json({
-      payload: null,
-      error: err.message || err
-    });
+    res.status(400).json({ payload: null, error: buildError(err) });
   }
 }
 
@@ -94,7 +108,7 @@ async function updateCustomer(req, res) {
   } = req.body;
 
   try {
-    const customer = await Customer.findOne({ customerID });
+    let customer = await Customer.findOne({ customerID });
 
     if (!customer) {
       throw new CustomerNotFoundException();
@@ -108,19 +122,19 @@ async function updateCustomer(req, res) {
       ? customerLifetimeValue
       : customer.customerLifetimeValue;
 
+    await customer.save();
+    customer = chopProperties(customer, propertiesBackList);
+
     res.json({ payload: customer });
   } catch (err) {
-    res.status(400).json({
-      payload: null,
-      error: err.message || err
-    });
+    res.status(400).json({ payload: null, error: buildError(err) });
   }
 }
 
 async function deleteCustomer(req, res) {
   const customerID = req.params.customerID;
   try {
-    const deletedCustomer = await Customer.deleteOne({
+    let deletedCustomer = await Customer.deleteOne({
       customerID
     });
 
@@ -128,10 +142,19 @@ async function deleteCustomer(req, res) {
       throw new CustomerNotFoundException();
     }
 
+    deletedCustomer = chopProperties(deleteCustomer, propertiesBackList);
+
     res.status(204).json({ payload: deletedCustomer });
   } catch (err) {
-    res.status(400).json({ payload: null, error: err });
+    res.status(400).json({ payload: null, error: buildError(err) });
   }
+}
+
+function buildError(error) {
+  return {
+    name: error.name,
+    message: error.message
+  };
 }
 
 module.exports = {

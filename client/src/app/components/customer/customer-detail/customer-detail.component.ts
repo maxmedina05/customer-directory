@@ -67,14 +67,22 @@ export class CustomerDetailComponent implements OnInit {
     if (this.isEditMode) {
       this.customerService
         .updateCustomer(this.customer)
-        .subscribe((response: Response) => {});
+        .subscribe((response: Response) => {
+          if (response.payload) {
+            this.router.navigateByUrl('/customers');
+          }
+        });
 
       return;
     }
 
     this.customerService
       .addCustomer(this.customer)
-      .subscribe((response: Response) => {});
+      .subscribe((response: Response) => {
+        if (response.payload) {
+          this.router.navigateByUrl('/customers');
+        }
+      });
   }
 
   onDelete() {

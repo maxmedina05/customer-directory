@@ -41,6 +41,11 @@ const customerSchema = new mongoose.Schema({
 });
 
 customerSchema.pre('save', async function(next) {
+  if (this.customerID !== 0) {
+    this.modifiedAt = new Date();
+    return next();
+  }
+
   try {
     let counter = await Counter.findByIdAndUpdate('customerID', {
       $inc: { seq: 1 }
