@@ -16,33 +16,30 @@ export class CustomerService {
 
   getCustomers(offset: number = 0): Observable<Response> {
     return this.http.get<Response>(
-      `${BASE_API_ENDPOINT}//customers?skip=${offset}`
+      `${BASE_API_ENDPOINT}/customers?skip=${offset}`
     );
   }
 
   getCustomer(customerID: number): Observable<Response> {
     return this.http.get<Response>(
-      `${BASE_API_ENDPOINT}//customers/${customerID}`
+      `${BASE_API_ENDPOINT}/customers/${customerID}`
     );
   }
 
   updateCustomer(customer: Customer): Observable<Response> {
     return this.http.put<Response>(
-      `${BASE_API_ENDPOINT}//customers/${customer.customerID}`,
+      `${BASE_API_ENDPOINT}/customers/${customer.customerID}`,
       customer
     );
   }
 
   addCustomer(customer: Customer): Observable<Response> {
-    return this.http.post<Response>(
-      `${BASE_API_ENDPOINT}//customers/${customer.customerID}`,
-      customer
-    );
+    return this.http.post<Response>(`${BASE_API_ENDPOINT}/customers`, customer);
   }
 
   deleteCustomer(customer: Customer): Observable<Response> {
     return this.http.delete<Response>(
-      `${BASE_API_ENDPOINT}//customers/${customer.customerID}`
+      `${BASE_API_ENDPOINT}/customers/${customer.customerID}`
     );
   }
 }

@@ -1,5 +1,5 @@
 <div>
-  <form class="paper-card">
+  <form class="paper-card paper-form">
     <div class="paper-card-title">
       <button (click)="onBack()" class="btn btn-default">
         <fa name="arrow-left"></fa>
@@ -40,9 +40,12 @@
         <label>Gender</label>
       </div>
       <div class="btn-group" role="group" arial-label="Gender group">
-        <button type="button" (click)="onSelectGender('m')" [ngClass]="isGenderSelected('m') ? 'btn-primary' : 'btn-secondary'" class="btn">Man</button>
-        <button type="button" (click)="onSelectGender('w')" [ngClass]="isGenderSelected('w') ? 'btn-primary' : 'btn-secondary'" class="btn">Woman</button>
-        <button type="button" (click)="onSelectGender('o')" [ngClass]="isGenderSelected('o') ? 'btn-primary' : 'btn-secondary'" class="btn">Other</button>
+        <button type="button" (click)="onSelectGender('m')" [ngClass]="isGenderSelected('m') ? 'btn-primary' : 'btn-outline-secondary'"
+          class="btn">Man</button>
+        <button type="button" (click)="onSelectGender('w')" [ngClass]="isGenderSelected('w') ? 'btn-primary' : 'btn-outline-secondary'"
+          class="btn">Woman</button>
+        <button type="button" (click)="onSelectGender('o')" [ngClass]="isGenderSelected('o') ? 'btn-primary' : 'btn-outline-secondary'"
+          class="btn">Other</button>
       </div>
     </div>
 
@@ -64,10 +67,10 @@
       <input class="form-control" [(ngModel)]="customer.customerLifetimeValue" type="number" name="customerLifetimeValue" />
     </div>
 
-    <div>
-      <button (click)="onDelete()">Delete</button>
-      <button (click)="onReset()">Reset</button>
-      <button (click)="onSubmit()">Submit</button>
+    <div class="action-group d-flex flex-row justify-content-between">
+      <button class="btn btn-outline-danger" *ngIf="isEditMode" (click)="onDelete()">Delete</button>
+      <button class="btn btn-outline-secondary ml-auto" (click)="onReset()">Reset</button>
+      <button class="btn btn-outline-primary" (click)="onSubmit()">Submit</button>
     </div>
   </form>
 </div>

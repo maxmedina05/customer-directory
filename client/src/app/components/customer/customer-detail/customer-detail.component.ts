@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Customer } from '../customer.model';
 import { CustomerService } from '../customer.service';
 import { Response } from '../../response.model';
+import * as moment from 'moment';
 
 const defaultCustomer = {
   customerID: 0,
@@ -58,7 +59,22 @@ export class CustomerDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('onSubmit');
+    const birthday: string = moment(this.customer.birthday).format(
+      'YYYY-MM-DD'
+    );
+    this.customer.birthday = birthday;
+
+    if (this.isEditMode) {
+      this.customerService
+        .updateCustomer(this.customer)
+        .subscribe((response: Response) => {});
+
+      return;
+    }
+
+    this.customerService
+      .addCustomer(this.customer)
+      .subscribe((response: Response) => {});
   }
 
   onDelete() {

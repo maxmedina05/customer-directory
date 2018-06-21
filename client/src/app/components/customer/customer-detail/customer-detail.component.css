@@ -1,11 +1,14 @@
 .paper-card {
-  max-width: 640px;
   margin: 0 auto;
   border: 0;
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   padding: 1.25rem;
+}
+
+.paper-form {
+  max-width: 640px;
 }
 
 .paper-card:hover {
@@ -20,4 +23,12 @@ h2 {
 .paper-card-title > button {
   vertical-align: top;
   margin-right: 8px;
+}
+
+.action-group > button {
+  margin-right: 8px;
+}
+
+.action-group > button:last-child {
+  margin-right: 0;
 }
