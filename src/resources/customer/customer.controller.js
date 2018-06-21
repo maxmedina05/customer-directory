@@ -65,13 +65,11 @@ async function addCustomer(req, res) {
 
 async function getCustomer(req, res) {
   const { customerID } = req.params;
-  console.log(customerID);
   try {
     const customer = await Customer.findOne(
       { customerID: customerID },
       { __v: 0, createdAt: 0, modifiedAt: 0 }
     );
-    console.log(customer);
     if (!customer) {
       throw new CustomerNotFoundException();
     }
@@ -130,7 +128,7 @@ async function deleteCustomer(req, res) {
       throw new CustomerNotFoundException();
     }
 
-    res.status(204).send();
+    res.status(204).json({ payload: deletedCustomer });
   } catch (err) {
     res.status(400).json({ payload: null, error: err });
   }

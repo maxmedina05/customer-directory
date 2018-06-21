@@ -45,7 +45,6 @@ customerSchema.pre('save', async function(next) {
     let counter = await Counter.findByIdAndUpdate('customerID', {
       $inc: { seq: 1 }
     });
-    console.log('counter: ', counter);
     if (!counter) {
       counter = new Counter({ _id: 'customerID', seq: 1 });
       await counter.save();
