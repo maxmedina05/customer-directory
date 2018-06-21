@@ -11,7 +11,7 @@ const defaultCustomer = {
     first: '',
     last: ''
   },
-  birthday: new Date().toDateString(),
+  birthday: new Date(),
   gender: 'm',
   lastContact: new Date(),
   customerLifetimeValue: 0
@@ -68,5 +68,13 @@ export class CustomerDetailComponent implements OnInit {
   onReset() {
     this.router.navigateByUrl('/customers/0');
     this.customer = defaultCustomer;
+  }
+
+  isGenderSelected(gender) {
+    return this.customer.gender === gender;
+  }
+
+  onSelectGender(gender) {
+    this.customer.gender = gender;
   }
 }

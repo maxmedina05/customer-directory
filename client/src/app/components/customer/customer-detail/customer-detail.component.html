@@ -24,17 +24,39 @@
 
     <div class="form-group">
       <label for="birthday">Birthday</label>
-      <input class="form-control" [(ngModel)]="customer.birthday" type="date" name="birthday" />
+      <div class="input-group">
+        <input class="form-control" #birthdayDatepicker="bsDatepicker" [(ngModel)]="customer.birthday" type="text" name="birthday"
+          bsDatepicker [bsConfig]="{containerClass: 'theme-dark-blue'}" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="birthdayDatepicker.toggle()">
+            <fa name="calendar"></fa>
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="gender">Gender</label>
-      <input class="form-control" [(ngModel)]="customer.gender" type="text" name="gender" />
+      <div>
+        <label>Gender</label>
+      </div>
+      <div class="btn-group" role="group" arial-label="Gender group">
+        <button type="button" (click)="onSelectGender('m')" [ngClass]="isGenderSelected('m') ? 'btn-primary' : 'btn-secondary'" class="btn">Man</button>
+        <button type="button" (click)="onSelectGender('w')" [ngClass]="isGenderSelected('w') ? 'btn-primary' : 'btn-secondary'" class="btn">Woman</button>
+        <button type="button" (click)="onSelectGender('o')" [ngClass]="isGenderSelected('o') ? 'btn-primary' : 'btn-secondary'" class="btn">Other</button>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="lastContact">Last Contact</label>
-      <input class="form-control" [(ngModel)]="customer.lastContact" type="date" name="lastContact" />
+      <div class="input-group">
+        <input class="form-control" #lastContactDatepicker="bsDatepicker" [(ngModel)]="customer.lastContact" type="text" name="lastContact"
+          bsDatepicker [bsConfig]="{containerClass: 'theme-dark-blue'}" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="lastContactDatepicker.toggle()">
+            <fa name="calendar"></fa>
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
