@@ -32,3 +32,12 @@ h2 {
 .action-group > button:last-child {
   margin-right: 0;
 }
+
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42a948;
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442;
+}

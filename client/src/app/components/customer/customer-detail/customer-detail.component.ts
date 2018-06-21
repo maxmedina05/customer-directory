@@ -13,7 +13,7 @@ const defaultCustomer = {
     last: ''
   },
   birthday: new Date(),
-  gender: 'm',
+  gender: '',
   lastContact: new Date(),
   customerLifetimeValue: 0
 };
