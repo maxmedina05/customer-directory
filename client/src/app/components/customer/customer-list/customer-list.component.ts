@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Router } from '@angular/router';
 
 import { Customer } from '../customer.model';
@@ -11,14 +13,17 @@ import { Response } from '../../response.model';
   styleUrls: ['./customer-list.component.css']
 })
 export class CustomerListComponent implements OnInit {
+  private _currentPage = 1;
+  private selectedCustomer: Customer = null;
   customers: Customer[] = [];
   pages = [];
   totalPages = 0;
-  private _currentPage = 1;
   CUSTOMER_PER_PAGE = 20;
+  modalRef: BsModalRef;
 
   constructor(
     private customerService: CustomerService,
+    private modalService: BsModalService,
     private router: Router
   ) {}
 
@@ -51,6 +56,11 @@ export class CustomerListComponent implements OnInit {
           this.pages.push(i + 1);
         }
       });
+  }
+
+  private reloadCustomers() {
+    const offset = (this.currentPage - 1) * this.CUSTOMER_PER_PAGE;
+    this.getCustomers(offset);
   }
 
   onAddNewClick() {
@@ -92,8 +102,23 @@ export class CustomerListComponent implements OnInit {
     return false;
   }
 
-  private reloadCustomers() {
-    const offset = (this.currentPage - 1) * this.CUSTOMER_PER_PAGE;
-    this.getCustomers(offset);
+  onOpenModal(template: TemplateRef<any>, customer: Customer) {
+    this.selectedCustomer = customer;
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+
+  onConfirmModal() {
+    this.customerService
+      .deleteCustomer(this.selectedCustomer)
+      .subscribe((response: Response) => {
+        this.selectedCustomer = null;
+      });
+
+    this.modalRef.hide();
+  }
+
+  onDeclineModal() {
+    this.selectedCustomer = null;
+    this.modalRef.hide();
   }
 }

@@ -19,7 +19,7 @@
             <button class="btn btn-info btn-sm" type="button" (click)="onEditClick(customer)">
               <fa name="edit"></fa>
             </button>
-            <button class="btn btn-danger btn-sm" type="button" (click)="onRemoveClick(customer)">
+            <button class="btn btn-danger btn-sm" type="button" (click)="onOpenModal(modal, customer)">
               <fa name="trash"></fa>
             </button>
           </span>
@@ -41,4 +41,12 @@
       </li>
     </ul>
   </nav>
+
+  <ng-template #modal>
+    <div class="modal-body text-center">
+      <p>Do you want to delete this customer?</p>
+      <button type="button" class="btn btn-default" (click)="onConfirmModal()">Yes</button>
+      <button type="button" class="btn btn-primary" (click)="onDeclineModal()">No</button>
+    </div>
+  </ng-template>
 </div>

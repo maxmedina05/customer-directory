@@ -133,18 +133,19 @@ async function updateCustomer(req, res) {
 
 async function deleteCustomer(req, res) {
   const customerID = req.params.customerID;
+  console.log(customerID);
   try {
-    let deletedCustomer = await Customer.deleteOne({
+    let customerToDelete = await Customer.findOne({
       customerID
     });
 
-    if (!deletedCustomer) {
+    if (!customerToDelete) {
       throw new CustomerNotFoundException();
     }
 
-    deletedCustomer = chopProperties(deleteCustomer, propertiesBackList);
+    await customerToDelete.remove();
 
-    res.status(204).json({ payload: deletedCustomer });
+    res.status(204).send();
   } catch (err) {
     res.status(400).json({ payload: null, error: buildError(err) });
   }

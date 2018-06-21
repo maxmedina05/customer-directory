@@ -33,7 +33,16 @@ export class CustomerService {
         `${BASE_API_ENDPOINT}/customers/${customer.customerID}`,
         customer
       )
-      .pipe(catchError(this.handleError('updateCustomer')));
+      .pipe(
+        tap(() =>
+          this.showToastMessage(
+            'Success',
+            'Oh Yeah. You were successful!',
+            'success'
+          )
+        ),
+        catchError(this.handleError('updateCustomer'))
+      );
   }
 
   addCustomer(customer: Customer): Observable<Response> {
@@ -54,7 +63,16 @@ export class CustomerService {
   deleteCustomer(customer: Customer): Observable<Response> {
     return this.http
       .delete<Response>(`${BASE_API_ENDPOINT}/customers/${customer.customerID}`)
-      .pipe(catchError(this.handleError('deleteCustomer')));
+      .pipe(
+        tap(() =>
+          this.showToastMessage(
+            'Success',
+            'Oh Yeah. You were successful!',
+            'success'
+          )
+        ),
+        catchError(this.handleError('deleteCustomer'))
+      );
   }
 
   private handleError(operation = 'operation') {

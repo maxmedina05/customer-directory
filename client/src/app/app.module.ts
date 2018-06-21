@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, ModalModule } from 'ngx-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
@@ -24,6 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     AngularFontAwesomeModule,
     BsDatepickerModule.forRoot(),
+    ModalModule.forRoot(),
     ToastrModule.forRoot()
   ],
   providers: [CustomerService],

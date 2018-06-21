@@ -6,8 +6,8 @@ interface Name {
 export class Customer {
   customerID: number;
   name: Name;
-  birthday: string | Date;
+  birthday: string;
   gender: string;
-  lastContact: string | Date;
+  lastContact: Date;
   customerLifetimeValue: number;
 }
