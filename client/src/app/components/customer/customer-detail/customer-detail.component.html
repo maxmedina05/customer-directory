@@ -32,8 +32,8 @@
     <div class="form-group">
       <label for="birthday">Birthday</label>
       <div class="input-group">
-        <input class="form-control" #birthdayDatepicker="bsDatepicker" [(ngModel)]="birthday" type="text" name="birthday" bsDatepicker
-          [bsConfig]="{containerClass: 'theme-dark-blue'}" />
+        <input class="form-control" #birthdayDatepicker="bsDatepicker" [(ngModel)]="customer.birthday" type="text" name="birthday"
+          bsDatepicker [bsConfig]="{containerClass: 'theme-dark-blue'}" />
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" (click)="birthdayDatepicker.toggle()">
             <fa name="calendar"></fa>

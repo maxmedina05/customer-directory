@@ -14,7 +14,7 @@ import { Response } from '../../response.model';
 })
 export class CustomerListComponent implements OnInit {
   private _currentPage = 1;
-  private selectedCustomer: Customer = null;
+  private _selectedCustomer: Customer = null;
   isLoading = false;
   customers: Customer[] = [];
   pages = [];
@@ -47,7 +47,9 @@ export class CustomerListComponent implements OnInit {
     this.customerService
       .getCustomers(offset, this.CUSTOMER_PER_PAGE)
       .subscribe((response: Response) => {
-        this.customers = response.payload;
+        this.customers = response.payload.map(c =>
+          Customer.buildCustomerFromJSON(c)
+        );
 
         this.totalPages =
           response.total < this.CUSTOMER_PER_PAGE
@@ -108,15 +110,15 @@ export class CustomerListComponent implements OnInit {
   }
 
   onOpenModal(template: TemplateRef<any>, customer: Customer) {
-    this.selectedCustomer = customer;
+    this._selectedCustomer = customer;
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
 
   onConfirmModal() {
     this.customerService
-      .deleteCustomer(this.selectedCustomer)
+      .deleteCustomer(this._selectedCustomer)
       .subscribe((response: Response) => {
-        this.selectedCustomer = null;
+        this._selectedCustomer = null;
         this.reloadCustomers();
       });
 
@@ -124,7 +126,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   onDeclineModal() {
-    this.selectedCustomer = null;
+    this._selectedCustomer = null;
     this.modalRef.hide();
   }
 }

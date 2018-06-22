@@ -6,19 +6,6 @@ import { Location } from '@angular/common';
 import { Customer } from '../customer.model';
 import { CustomerService } from '../customer.service';
 import { Response } from '../../response.model';
-import * as moment from 'moment';
-
-const defaultCustomer = {
-  customerID: 0,
-  name: {
-    first: '',
-    last: ''
-  },
-  birthday: '',
-  gender: '',
-  lastContact: new Date(),
-  customerLifetimeValue: 0
-};
 
 @Component({
   selector: 'app-customer-detail',
@@ -27,8 +14,7 @@ const defaultCustomer = {
 })
 export class CustomerDetailComponent implements OnInit {
   isLoading = false;
-  customer: Customer = defaultCustomer;
-  birthday = new Date();
+  customer: Customer = new Customer();
   title = 'Add Customer';
   isEditMode = false;
   modalRef: BsModalRef;
@@ -57,10 +43,7 @@ export class CustomerDetailComponent implements OnInit {
     this.customerService
       .getCustomer(customerID)
       .subscribe((response: Response) => {
-        this.customer = response.payload;
-
-        this.birthday = new Date(this.customer.birthday);
-        this.customer.lastContact = new Date(this.customer.lastContact);
+        this.customer = Customer.buildCustomerFromJSON(response.payload);
         this.isLoading = false;
       });
   }
@@ -72,8 +55,6 @@ export class CustomerDetailComponent implements OnInit {
   onSubmit(event) {
     event.preventDefault();
     this.isLoading = true;
-    const birthday: string = moment(this.birthday).format('YYYY-MM-DD');
-    this.customer.birthday = birthday;
 
     if (this.isEditMode) {
       this.customerService
@@ -89,14 +70,13 @@ export class CustomerDetailComponent implements OnInit {
   onSubmitFinished(response: Response) {
     this.isLoading = false;
     if (response.payload) {
-      this.customer = defaultCustomer;
+      this.customer = new Customer();
       this.router.navigateByUrl('/customers');
     }
   }
 
   onReset() {
-    this.customer = defaultCustomer;
-    this.birthday = new Date();
+    this.customer = new Customer();
     this.router.navigateByUrl('/customers/0');
   }
 

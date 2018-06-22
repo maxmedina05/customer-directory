@@ -1,6 +1,6 @@
-import { Customer } from './customer.model';
+import { CustomerJSON } from './customer.model';
 
-export const CUSTOMERS: Customer[] = [
+export const CUSTOMERS: CustomerJSON[] = [
   {
     customerID: 1,
     name: {
@@ -9,7 +9,7 @@ export const CUSTOMERS: Customer[] = [
     },
     birthday: '1996-10-12',
     gender: 'm',
-    lastContact: new Date('2017-06-01T23:28:56.782Z'),
+    lastContact: '2017-06-01T23:28:56.782Z',
     customerLifetimeValue: 191.12
   },
   {
@@ -20,7 +20,7 @@ export const CUSTOMERS: Customer[] = [
     },
     birthday: '1987-05-03',
     gender: 'w',
-    lastContact: new Date('2017-07-08T13:18:56.888Z'),
+    lastContact: '2017-07-08T13:18:56.888Z',
     customerLifetimeValue: 50.99
   },
   {
@@ -31,7 +31,7 @@ export const CUSTOMERS: Customer[] = [
     },
     birthday: '1991-02-21',
     gender: 'm',
-    lastContact: new Date('2017-08-01T11:57:47.142Z'),
+    lastContact: '2017-08-01T11:57:47.142Z',
     customerLifetimeValue: 0
   },
   {
@@ -42,7 +42,7 @@ export const CUSTOMERS: Customer[] = [
     },
     birthday: '1979-06-30',
     gender: 'w',
-    lastContact: new Date('2017-01-29T21:08:50.700Z'),
+    lastContact: '2017-01-29T21:08:50.700Z',
     customerLifetimeValue: 213.12
   },
   {
@@ -53,7 +53,7 @@ export const CUSTOMERS: Customer[] = [
     },
     birthday: '1969-11-21',
     gender: 'm',
-    lastContact: new Date('2017-03-18T12:20:06.702Z'),
+    lastContact: '2017-03-18T12:20:06.702Z',
     customerLifetimeValue: 1019.91
   }
 ];

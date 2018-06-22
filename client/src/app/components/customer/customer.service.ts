@@ -4,8 +4,9 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Response } from '../response.model';
-import { Customer } from './customer.model';
+import { Customer, CustomerJSON } from './customer.model';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
 
 const BASE_API_ENDPOINT = '/api/v1';
 
@@ -30,10 +31,13 @@ export class CustomerService {
   }
 
   updateCustomer(customer: Customer): Observable<Response> {
+    const body: any = Object.assign({}, customer);
+    body.birthday = moment(customer.birthday).format('YYYY-MM-DD');
+
     return this.http
       .put<Response>(
         `${BASE_API_ENDPOINT}/customers/${customer.customerID}`,
-        customer
+        body
       )
       .pipe(
         tap(() =>
@@ -48,8 +52,11 @@ export class CustomerService {
   }
 
   addCustomer(customer: Customer): Observable<Response> {
+    const body: any = Object.assign({}, customer);
+    body.birthday = moment(customer.birthday).format('YYYY-MM-DD');
+
     return this.http
-      .post<Response>(`${BASE_API_ENDPOINT}/customers`, customer)
+      .post<Response>(`${BASE_API_ENDPOINT}/customers`, body)
       .pipe(
         tap(() =>
           this.showToastMessage(

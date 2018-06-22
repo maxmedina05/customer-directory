@@ -13,7 +13,7 @@
     <tbody>
       <tr *ngFor="let customer of customers">
         <td>{{customer.customerID}}</td>
-        <td>{{customer.name.first + ' ' + customer.name.last }}</td>
+        <td>{{customer.fullName}}</td>
         <td>
           <span class="action-group pull-right">
             <button class="btn btn-info btn-sm" type="button" (click)="onEditClick(customer)">
