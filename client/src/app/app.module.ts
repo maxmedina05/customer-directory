@@ -6,10 +6,9 @@ import { CustomerModule } from './components/customer/customer.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { LoadingDotComponent } from './components/loading-dot/loading-dot.component';
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent, LoadingDotComponent],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [BrowserModule, CustomerModule, AppRoutingModule],
   bootstrap: [AppComponent]
 })

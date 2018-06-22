@@ -2,6 +2,14 @@
   margin-right: 8px;
 }
 
+.table {
+  margin-bottom: 2rem;
+}
+
+.paper-card {
+  padding: 0.75rem 1.25rem;
+}
+
 .paper-card > button {
   margin-bottom: 16px;
 }

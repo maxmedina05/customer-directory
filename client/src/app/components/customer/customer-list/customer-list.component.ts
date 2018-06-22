@@ -42,6 +42,8 @@ export class CustomerListComponent implements OnInit {
   }
 
   private getCustomers(offset: number = 0) {
+    this.isLoading = true;
+
     this.customerService
       .getCustomers(offset, this.CUSTOMER_PER_PAGE)
       .subscribe((response: Response) => {
@@ -56,6 +58,8 @@ export class CustomerListComponent implements OnInit {
         for (let i = 0; i < this.totalPages; i++) {
           this.pages.push(i + 1);
         }
+
+        this.isLoading = false;
       });
   }
 

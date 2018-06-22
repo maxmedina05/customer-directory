@@ -12,6 +12,8 @@ import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { CustomerService } from './customer.service';
 
+import { LoadingDotComponent } from './loading-dot/loading-dot.component';
+
 import { CustomerRoutingModule } from './customer-routing-module';
 
 @NgModule({
@@ -26,7 +28,11 @@ import { CustomerRoutingModule } from './customer-routing-module';
     ToastrModule.forRoot(),
     CustomerRoutingModule
   ],
-  declarations: [CustomerListComponent, CustomerDetailComponent],
+  declarations: [
+    CustomerListComponent,
+    CustomerDetailComponent,
+    LoadingDotComponent
+  ],
   providers: [CustomerService]
 })
 export class CustomerModule {}

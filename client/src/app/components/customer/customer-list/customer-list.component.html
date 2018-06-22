@@ -1,4 +1,4 @@
-<div class="paper-card">
+<div class="paper-card loading-container">
   <h2>Customer List</h2>
   <button class="btn btn-primary pull-right" (click)="onAddNewClick()">Add Customer</button>
 
@@ -7,8 +7,6 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Age</th>
-        <th>CLV</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -16,8 +14,6 @@
       <tr *ngFor="let customer of customers">
         <td>{{customer.customerID}}</td>
         <td>{{customer.name.first + ' ' + customer.name.last }}</td>
-        <td></td>
-        <td></td>
         <td>
           <span class="action-group pull-right">
             <button class="btn btn-info btn-sm" type="button" (click)="onEditClick(customer)">
@@ -53,4 +49,6 @@
       <button type="button" class="btn btn-primary" (click)="onDeclineModal()">No</button>
     </div>
   </ng-template>
+
+  <app-loading-dot [showLoading]="isLoading"></app-loading-dot>
 </div>

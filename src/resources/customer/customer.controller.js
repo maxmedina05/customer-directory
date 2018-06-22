@@ -133,7 +133,6 @@ async function updateCustomer(req, res) {
 
 async function deleteCustomer(req, res) {
   const customerID = req.params.customerID;
-  console.log(customerID);
   try {
     let customerToDelete = await Customer.findOne({
       customerID
