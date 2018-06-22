@@ -2,6 +2,11 @@
   max-width: 640px;
 }
 
+.loading-container {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
 .paper-card-title > button,
 h2 {
   display: inline-block;

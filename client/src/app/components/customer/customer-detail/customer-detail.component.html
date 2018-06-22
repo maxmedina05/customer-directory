@@ -1,4 +1,4 @@
-<div>
+<div class="loading-container">
   <form class="paper-card paper-form" #customerForm="ngForm" (ngSubmit)="onSubmit($event)">
     <div class="paper-card-title">
       <button (click)="goBack()" class="btn btn-default">
@@ -91,4 +91,6 @@
 
     </div>
   </ng-template>
+
+  <app-loading-dot [showLoading]="isLoading"></app-loading-dot>
 </div>

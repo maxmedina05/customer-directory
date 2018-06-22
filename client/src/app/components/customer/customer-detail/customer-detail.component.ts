@@ -26,6 +26,7 @@ const defaultCustomer = {
   styleUrls: ['./customer-detail.component.css']
 })
 export class CustomerDetailComponent implements OnInit {
+  isLoading = false;
   customer: Customer = defaultCustomer;
   birthday = new Date();
   title = 'Add Customer';
@@ -51,6 +52,7 @@ export class CustomerDetailComponent implements OnInit {
     if (customerID === 0) {
       return;
     }
+    this.isLoading = true;
 
     this.customerService
       .getCustomer(customerID)
@@ -59,6 +61,7 @@ export class CustomerDetailComponent implements OnInit {
 
         this.birthday = new Date(this.customer.birthday);
         this.customer.lastContact = new Date(this.customer.lastContact);
+        this.isLoading = false;
       });
   }
 
@@ -68,30 +71,27 @@ export class CustomerDetailComponent implements OnInit {
 
   onSubmit(event) {
     event.preventDefault();
+    this.isLoading = true;
     const birthday: string = moment(this.birthday).format('YYYY-MM-DD');
     this.customer.birthday = birthday;
 
     if (this.isEditMode) {
       this.customerService
         .updateCustomer(this.customer)
-        .subscribe((response: Response) => {
-          if (response.payload) {
-            this.customer = defaultCustomer;
-            this.router.navigateByUrl('/customers');
-          }
-        });
-
-      return;
+        .subscribe((response: Response) => this.onSubmitFinished(response));
+    } else {
+      this.customerService
+        .addCustomer(this.customer)
+        .subscribe((response: Response) => this.onSubmitFinished(response));
     }
+  }
 
-    this.customerService
-      .addCustomer(this.customer)
-      .subscribe((response: Response) => {
-        if (response.payload) {
-          this.customer = defaultCustomer;
-          this.router.navigateByUrl('/customers');
-        }
-      });
+  onSubmitFinished(response: Response) {
+    this.isLoading = false;
+    if (response.payload) {
+      this.customer = defaultCustomer;
+      this.router.navigateByUrl('/customers');
+    }
   }
 
   onReset() {
