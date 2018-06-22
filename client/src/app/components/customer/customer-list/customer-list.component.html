@@ -7,6 +7,7 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>CLV</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -14,6 +15,7 @@
       <tr *ngFor="let customer of customers">
         <td>{{customer.customerID}}</td>
         <td>{{customer.fullName}}</td>
+        <td>{{customer.customerLifetimeValue}}</td>
         <td>
           <span class="action-group pull-right">
             <button class="btn btn-info btn-sm" type="button" (click)="onEditClick(customer)">
