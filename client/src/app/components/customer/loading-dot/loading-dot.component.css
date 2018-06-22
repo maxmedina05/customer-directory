@@ -15,7 +15,7 @@
   height: 20px;
   position: absolute;
   left: -20px;
-  top: 60%;
+  top: 50%;
   background-color: #333;
   border-radius: 50%;
   animation: move 4s infinite cubic-bezier(0.2, 0.64, 0.81, 0.23);

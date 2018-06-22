@@ -5,7 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { BsDatepickerModule, ModalModule } from 'ngx-bootstrap';
+import {
+  BsDatepickerModule,
+  ModalModule,
+  TimepickerModule
+} from 'ngx-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
 import { CustomerListComponent } from './customer-list/customer-list.component';
@@ -24,6 +28,7 @@ import { CustomerRoutingModule } from './customer-routing-module';
     FormsModule,
     HttpClientModule,
     BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
     ModalModule.forRoot(),
     ToastrModule.forRoot(),
     CustomerRoutingModule

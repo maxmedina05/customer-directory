@@ -1,3 +1,7 @@
+.action-group {
+  white-space: nowrap;
+}
+
 .action-group > button {
   margin-right: 8px;
 }

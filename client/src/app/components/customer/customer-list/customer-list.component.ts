@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Router } from '@angular/router';
@@ -12,13 +12,14 @@ import { Response } from '../../response.model';
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.css']
 })
-export class CustomerListComponent implements OnInit {
+export class CustomerListComponent implements OnInit, OnDestroy {
   private _currentPage = 1;
   private _selectedCustomer: Customer = null;
   isLoading = false;
   customers: Customer[] = [];
   pages = [];
   totalPages = 0;
+  totalCustomers = 0;
   CUSTOMER_PER_PAGE = 10;
   modalRef: BsModalRef;
 
@@ -41,6 +42,10 @@ export class CustomerListComponent implements OnInit {
     this.getCustomers();
   }
 
+  ngOnDestroy() {
+    this.onDeclineModal();
+  }
+
   private getCustomers(offset: number = 0) {
     this.isLoading = true;
 
@@ -50,7 +55,7 @@ export class CustomerListComponent implements OnInit {
         this.customers = response.payload.map(c =>
           Customer.buildCustomerFromJSON(c)
         );
-
+        this.totalCustomers = response.total;
         this.totalPages =
           response.total < this.CUSTOMER_PER_PAGE
             ? 1

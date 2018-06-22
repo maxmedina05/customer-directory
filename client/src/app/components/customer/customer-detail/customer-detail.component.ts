@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -6,18 +6,22 @@ import { Location } from '@angular/common';
 import { Customer } from '../customer.model';
 import { CustomerService } from '../customer.service';
 import { Response } from '../../response.model';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-detail',
   templateUrl: './customer-detail.component.html',
   styleUrls: ['./customer-detail.component.css']
 })
-export class CustomerDetailComponent implements OnInit {
+export class CustomerDetailComponent implements OnInit, OnDestroy {
   isLoading = false;
   customer: Customer = new Customer();
   title = 'Add Customer';
   isEditMode = false;
   modalRef: BsModalRef;
+  lastContactTime: Date = new Date();
+  maxDateAllowed: Date = new Date();
+  customerForm: FormGroup;
 
   constructor(
     private router: Router,
@@ -28,10 +32,16 @@ export class CustomerDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.customerForm = new FormGroup({});
+
     const customerID = +this.route.snapshot.paramMap.get('customerID');
     this.isEditMode = customerID !== 0 ? true : false;
     this.title = this.isEditMode ? 'Edit Customer' : 'Add Customer';
     this.getCustomer(customerID);
+  }
+
+  ngOnDestroy() {
+    this.onDeclineModal();
   }
 
   getCustomer(customerID: number) {
@@ -44,6 +54,7 @@ export class CustomerDetailComponent implements OnInit {
       .getCustomer(customerID)
       .subscribe((response: Response) => {
         this.customer = Customer.buildCustomerFromJSON(response.payload);
+        this.lastContactTime = new Date(this.customer.lastContact);
         this.isLoading = false;
       });
   }
@@ -55,6 +66,10 @@ export class CustomerDetailComponent implements OnInit {
   onSubmit(event) {
     event.preventDefault();
     this.isLoading = true;
+
+    this.customer.lastContact.setHours(this.lastContactTime.getHours());
+    this.customer.lastContact.setMinutes(this.lastContactTime.getMinutes());
+    this.customer.lastContact.setSeconds(this.lastContactTime.getSeconds());
 
     if (this.isEditMode) {
       this.customerService
@@ -75,9 +90,12 @@ export class CustomerDetailComponent implements OnInit {
     }
   }
 
-  onReset() {
+  onReset(event) {
+    event.preventDefault();
+    const { customerID } = this.customer;
     this.customer = new Customer();
-    this.router.navigateByUrl('/customers/0');
+    this.customer.customerID = customerID;
+    return false;
   }
 
   isGenderSelected(gender) {
