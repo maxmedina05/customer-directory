@@ -82,7 +82,7 @@
     </div>
 
     <div class="action-group d-flex flex-row justify-content-between">
-      <button class="btn btn-outline-danger" *ngIf="isEditMode" (click)="onOpenModal($event, modal)">Delete</button>
+      <button id="delete-button" class="btn btn-outline-danger" *ngIf="isEditMode" (click)="onOpenModal($event, modal)">Delete</button>
       <button class="btn btn-outline-secondary ml-auto" (click)="onReset($event)">Reset</button>
       <button type="submit" class="btn btn-outline-primary" [disabled]="!customerForm.form.valid">Submit</button>
     </div>

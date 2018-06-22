@@ -4,7 +4,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Router } from '@angular/router';
 
 import { Customer } from '../customer.model';
-import { CustomerService } from '../customer.service';
+import { CustomerService } from '../customer-service/customer.service';
 import { Response } from '../../response.model';
 
 @Component({
@@ -52,18 +52,20 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.customerService
       .getCustomers(offset, this.CUSTOMER_PER_PAGE)
       .subscribe((response: Response) => {
-        this.customers = response.payload.map(c =>
-          Customer.buildCustomerFromJSON(c)
-        );
-        this.totalCustomers = response.total;
-        this.totalPages =
-          response.total < this.CUSTOMER_PER_PAGE
-            ? 1
-            : Math.ceil(response.total / this.CUSTOMER_PER_PAGE);
+        if (response.payload) {
+          this.customers = response.payload.map(c =>
+            Customer.buildCustomerFromJSON(c)
+          );
+          this.totalCustomers = response.total;
+          this.totalPages =
+            response.total < this.CUSTOMER_PER_PAGE
+              ? 1
+              : Math.ceil(response.total / this.CUSTOMER_PER_PAGE);
 
-        this.pages = [];
-        for (let i = 0; i < this.totalPages; i++) {
-          this.pages.push(i + 1);
+          this.pages = [];
+          for (let i = 0; i < this.totalPages; i++) {
+            this.pages.push(i + 1);
+          }
         }
 
         this.isLoading = false;
@@ -132,6 +134,8 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   onDeclineModal() {
     this._selectedCustomer = null;
-    this.modalRef.hide();
+    if (this.modalRef) {
+      this.modalRef.hide();
+    }
   }
 }

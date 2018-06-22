@@ -3,17 +3,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Response } from '../response.model';
-import { Customer, CustomerJSON } from './customer.model';
+import { Response } from '../../response.model';
+import { Customer, CustomerJSON } from '../customer.model';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 
 const BASE_API_ENDPOINT = '/api/v1';
 
+export interface ICustomerService {
+  getCustomers(offset: number, limit: number): Observable<Response>;
+  getCustomer(customerID: number): Observable<Response>;
+  updateCustomer(customer: Customer): Observable<Response>;
+  addCustomer(customer: Customer): Observable<Response>;
+  deleteCustomer(customer: Customer): Observable<Response>;
+}
+
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerService {
+export class CustomerService implements ICustomerService {
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   getCustomers(offset: number = 0, limit: number = 10): Observable<Response> {

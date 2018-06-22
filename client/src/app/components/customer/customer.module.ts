@@ -14,7 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
-import { CustomerService } from './customer.service';
+import { CustomerService } from './customer-service/customer.service';
 
 import { LoadingDotComponent } from './loading-dot/loading-dot.component';
 

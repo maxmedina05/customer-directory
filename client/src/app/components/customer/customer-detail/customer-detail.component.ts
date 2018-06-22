@@ -4,7 +4,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Location } from '@angular/common';
 import { Customer } from '../customer.model';
-import { CustomerService } from '../customer.service';
+import { CustomerService } from '../customer-service/customer.service';
 import { Response } from '../../response.model';
 import { FormGroup } from '@angular/forms';
 
@@ -123,6 +123,8 @@ export class CustomerDetailComponent implements OnInit, OnDestroy {
   }
 
   onDeclineModal() {
-    this.modalRef.hide();
+    if (this.modalRef) {
+      this.modalRef.hide();
+    }
   }
 }

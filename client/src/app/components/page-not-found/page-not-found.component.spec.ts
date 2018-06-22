@@ -8,9 +8,8 @@ describe('PageNotFoundComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageNotFoundComponent ]
-    })
-    .compileComponents();
+      declarations: [PageNotFoundComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('PageNotFoundComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create a page not found', () => {
     expect(component).toBeTruthy();
   });
 });

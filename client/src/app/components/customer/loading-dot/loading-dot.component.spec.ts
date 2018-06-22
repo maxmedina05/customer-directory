@@ -8,9 +8,8 @@ describe('LoadingDotComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoadingDotComponent ]
-    })
-    .compileComponents();
+      declarations: [LoadingDotComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('LoadingDotComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the loading dot', () => {
     expect(component).toBeTruthy();
   });
 });

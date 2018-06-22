@@ -1,4 +1,4 @@
-import { CustomerJSON } from './customer.model';
+import { CustomerJSON } from '../customer.model';
 
 export const CUSTOMERS: CustomerJSON[] = [
   {
