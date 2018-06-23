@@ -5,7 +5,8 @@ const {
   addCustomer,
   deleteCustomer,
   getCustomer,
-  updateCustomer
+  updateCustomer,
+  searchCustomers
 } = require('./customer.controller');
 
 /**
@@ -45,6 +46,8 @@ const {
  *         description: Error
  */
 router.get('/', getAllcustomer);
+
+router.get('/search', searchCustomers);
 
 /**
  * @swagger

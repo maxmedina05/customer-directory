@@ -11,6 +11,30 @@ const propertiesBackList = [
   '__v'
 ];
 
+async function searchCustomers(req, res) {
+  try {
+    const { q, skip = 0, limit = 20 } = req.query;
+
+    const filter = {
+      $or: [
+        { 'name.first': new RegExp(q, 'i') },
+        { 'name.last': new RegExp(q, 'i') }
+      ]
+    };
+
+    let customers = await Customer.find(filter)
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      payload: customers,
+      count: customers.length
+    });
+  } catch (err) {
+    res.status(400).json({ payload: null, error: buildError(err) });
+  }
+}
+
 async function getAllcustomer(req, res) {
   try {
     const {
@@ -162,5 +186,6 @@ module.exports = {
   addCustomer,
   deleteCustomer,
   getCustomer,
-  updateCustomer
+  updateCustomer,
+  searchCustomers
 };

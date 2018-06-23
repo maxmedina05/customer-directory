@@ -7,10 +7,10 @@ const Counter = require('../counter.schema');
  *   Customer:
  *     properties:
  *       customerID:
- *         type: string
+ *         type: number
  *       name:
  *         type: object
- *          properties:
+ *         properties:
  *            first:
  *              type: string
  *            last:
@@ -20,7 +20,7 @@ const Counter = require('../counter.schema');
  *       gender:
  *         type: string
  *       lastContact:
- *         type: date
+ *         type: dateTime
  *       customerLifetimeValue:
  *         type: number
  *         $ref: '#/definitions/Customer'
