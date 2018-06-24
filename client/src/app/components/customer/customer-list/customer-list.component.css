@@ -17,3 +17,11 @@
 .paper-card > button {
   margin-bottom: 16px;
 }
+
+.row > div {
+  margin: 8px 0;
+}
+
+.table {
+  margin-top: 8px;
+}

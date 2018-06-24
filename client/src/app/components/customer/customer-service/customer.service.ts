@@ -32,6 +32,18 @@ export class CustomerService implements ICustomerService {
       .pipe(catchError(this.handleError('getCustomers')));
   }
 
+  searchCustomers(
+    term: string = '',
+    offset: number = 0,
+    limit: number = 10
+  ): Observable<Response> {
+    return this.http
+      .get<Response>(
+        `${BASE_API_ENDPOINT}/customers/search?q=${term}&skip=${offset}&limit=${limit}`
+      )
+      .pipe(catchError(this.handleError('searchCustomers')));
+  }
+
   getCustomer(customerID: number): Observable<Response> {
     return this.http
       .get<Response>(`${BASE_API_ENDPOINT}/customers/${customerID}`)

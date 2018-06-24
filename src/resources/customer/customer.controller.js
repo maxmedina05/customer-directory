@@ -13,7 +13,10 @@ const propertiesBackList = [
 
 async function searchCustomers(req, res) {
   try {
-    const { q, skip = 0, limit = 20 } = req.query;
+    let { q, skip = 0, limit = 20 } = req.query;
+
+    skip = Number.parseInt(skip);
+    limit = Number.parseInt(limit);
 
     const filter = {
       $or: [
@@ -22,12 +25,14 @@ async function searchCustomers(req, res) {
       ]
     };
 
+    const total = await Customer.count(filter);
     let customers = await Customer.find(filter)
       .skip(skip)
       .limit(limit);
 
     res.json({
       payload: customers,
+      total,
       count: customers.length
     });
   } catch (err) {
