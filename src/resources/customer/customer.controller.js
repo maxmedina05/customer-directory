@@ -58,6 +58,7 @@ async function getAllcustomer(req, res) {
       .select(projection)
       .sort(sort);
 
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     res.set('X-Total-Count', total);
     res.json({
       payload: customers,
